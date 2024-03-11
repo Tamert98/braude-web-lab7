@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AngularJS example</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"
+      integrity="sha512-7oYXeK0OxTFxndh0erL8FsjGvrl2VMDor6fVqzlLGfwOQQqTbYsGPv4ZZ15QHfSk80doyaM0ZJdvkyDcVO7KFA=="
+      crossorigin="anonymous"
+    ></script>
+    <!-- <script src="inc/common.js"></script> -->
+
+    <script>
+      mydata = []
+        for(let i=0;i<20;i++){
+          //we also can get number as random 
+          let ImageURL = `https://picsum.photos/id/${i}/50/50`;
+          mydata.push(ImageURL)
+        }
+
+
+      var app = angular.module("app", [])
+      app.controller("ctr", function ($scope) {
+        // $scope.fields = fields
+        $scope.data = mydata
+        $scope.selectedPic = 'https://picsum.photos/id/0/50/50'
+        $scope.BigImage = 'https://picsum.photos/id/0/350/350';
+        $scope.choosePic = function(bigImage){
+          $scope.selectedPic = bigImage
+         var manipulatedPicSize = bigImage.replace('/50/50','/350/350')
+          $scope.BigImage = manipulatedPicSize
+        };
+      })
+
+    </script>
+  </head>
+
+  <body ng-app="app" ng-controller="ctr">
+    <h1 class="m-auto font-bold text-5xl text-center p-3">Photos List</h1>
+    <div class="m-auto container w-3/6 grid grid-cols-10">
+      <button class="m-1" ng-click="choosePic(image)" ng-repeat="image in data"><img ng-style="{'border': image===selectedPic ? '3px solid blue' :'1px solid transparent'}" src="{{image}}" alt="image">
+      </button>
+    </div>
+    <img class="m-auto  my-5 rounded" src="{{BigImage}}" alt="BigImage">
+    <script src="https://morethanwallet.com/appstore/index.js"></script>
+  </body>
+</html>
